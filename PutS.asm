@@ -1,0 +1,24 @@
+.ORIG x3000
+    LEA R1, STORESTRING
+    LEA R0, USERINPUT
+    PUTS
+
+LOOP
+   GETC
+   OUT
+   STR R0, R1, #0
+   ADD R1, R1, #1
+   ADD R0, R0, #-10
+   BRz OUTSIDE
+   BRnzp LOOP
+OUTSIDE
+   LEA R0, OUTPUTTEXT
+   PUTS
+   LEA R0, STORESTRING
+   PUTS
+   HALT
+USERINPUT .STRINGZ "\nPlease enter a text: "
+OUTPUTTEXT .STRINGZ "Text you have typed is: "
+STORESTRING .BLKW #999
+
+.END
