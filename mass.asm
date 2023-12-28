@@ -19,6 +19,8 @@ LD R6, IOCOUNTER
 ; Цикл ввода
 INPUT
     IN ;поглотить символ
+    LEA R0, SPACE
+    PUTS
     AND R2, R2, #0     ; Очистка регистра R2
     AND R5, R5, #0     ; Очстка регистра R5
     LD R5, PLACEHUNDRED ; Загрузка сотни
