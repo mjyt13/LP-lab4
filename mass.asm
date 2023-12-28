@@ -5,7 +5,7 @@ LEA R0, FIRSTPROMPT
 PUTS
 
 ; Вывод разделителя
-LEA R0, NEWLINE
+LEA R0, SPACE
 PUTS
 
 ; Вывод примера ввода
@@ -181,10 +181,10 @@ REMAINDER2
     HALT
 
 ; Строковые константы и инициализация данных
-FIRSTPROMPT .STRINGZ "Введите 10 чисел в промежутке 000 - 100 с помощью 3 цифр."
-SAMPLE .STRINGZ "Пример: 15 написано как 015, 5 - как 005"
-PROMPTEXECUTE .STRINGZ "Числа в порядке возрастания: "
-NEWLINE .STRINGZ "\n"
+FIRSTPROMPT .STRINGZ "Enter 10numbers in range 000 - 999 with 3 digits."
+SAMPLE .STRINGZ "Example: 15 as 015, 5 as 005"
+PROMPTEXECUTE .STRINGZ "Number in ascending order: "
+SPACE .STRINGZ "\n"
 HEXN48 .FILL xFFD0
 HEX48 .FILL x0030
 PLACEHUNDRED .FILL x0064
