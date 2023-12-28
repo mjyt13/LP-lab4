@@ -34,7 +34,7 @@ INNER_LOOP
     NOT R5, R1
     ADD R5, R5, #1
     ADD R5, R0, R5       ; Сравнить числа
-    BRn SKIP_SWAP        ; Если R0 < R1, перейти к следующей итерации
+    BRn SKIP_SWAP       
     STR R1, R3, #0       ; Меняем местами
     STR R0, R3, #1
 SKIP_SWAP
