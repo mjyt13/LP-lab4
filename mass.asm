@@ -1,14 +1,14 @@
 .ORIG x3000
 
-; Выводим первый запрос
+; Вывод первой части заспроса
 LEA R0, FIRSTPROMPT
 PUTS
 
-; Выводим второй запрос
-LEA R0, SPACE
+; Вывод разделителя
+LEA R0, NEWLINE
 PUTS
 
-; Выводим пример ввода
+; Вывод примера ввода
 LEA R0, SAMPLE
 PUTS
 
@@ -18,24 +18,24 @@ LD R6, IOCOUNTER
 
 ; Цикл ввода
 INPUT
-    IN
-    AND R2, R2, #0     ; Очищаем регистр R2
-    AND R5, R5, #0     ; Очищаем регистр R5
-    LD R5, PLACEHUNDRED
-    LD R2, HEXN48
-    ADD R0, R0, R2
-    ADD R2, R0, #0
-    AND R0, R0, #0
+    IN ;поглотить символ
+    AND R2, R2, #0     ; Очистка регистра R2
+    AND R5, R5, #0     ; Очстка регистра R5
+    LD R5, PLACEHUNDRED ; Загрузка сотни
+    LD R2, HEXN48    ; Загрузка 16^4-48
+    ADD R0, R0, R2 ;переместить значение
+    ADD R2, R0, #0 ;записать значение в R2
+    AND R0, R0, #0 ; Очистить поток
 
 FIRST_NUM
-    ADD R0, R0, R2
-    ADD R5, R5, #-1
+    ADD R0, R0, R2 ;перезаписать значение в R0
+    ADD R5, R5, #-1 ;уменьшить количество на 1
     BRp FIRST_NUM
-    ADD R1, R0, #0
-    AND R0, R0, #0
+    ADD R1, R0, #0 ; сохранить в R1
+    AND R0, R0, #0 ; очистка
 
-    IN
-    AND R2, R2, #0
+    IN ;снова ввод, повторение
+    AND R2, R2, #0 
     AND R5, R5, #0
     LD R5, PLACETEN
     LD R2, HEXN48
@@ -76,13 +76,13 @@ BUBBLESORT
     AND R5, R5, #0
     LD R5, IOCOUNTER
 
-FINALOUT_LOOP
+OUT_LOOP
     ADD R4, R4, #-1
     BRz SORTED
     ADD R5, R4, #0
     LD R3, POINTER
 
-FINALIN_LOOP
+IN_LOOP
     LDR R0, R3, #0
     LDR R1, R3, #1
     AND R2, R2, #0
@@ -97,8 +97,8 @@ FINALIN_LOOP
 AUTOSWAP
     ADD R3, R3, #1
     ADD R5, R5, #-1
-    BRp FINALIN_LOOP
-    BRzp FINALOUT_LOOP
+    BRp IN_LOOP
+    BRzp OUT_LOOP
 
 SORTED
     RET
@@ -181,10 +181,10 @@ REMAINDER2
     HALT
 
 ; Строковые константы и инициализация данных
-FIRSTPROMPT .STRINGZ "Input 10 numbers ranging from 000 - 100 with 3 digits."
-SAMPLE .STRINGZ "Ex: Input 15 as 015 or 5 as 005"
-PROMPTEXECUTE .STRINGZ "Numbers in Ascending Order: "
-SPACE .STRINGZ "\n"
+FIRSTPROMPT .STRINGZ "Введите 10 чисел в промежутке 000 - 100 с помощью 3 цифр."
+SAMPLE .STRINGZ "Пример: 15 написано как 015, 5 - как 005"
+PROMPTEXECUTE .STRINGZ "Числа в порядке возрастания: "
+NEWLINE .STRINGZ "\n"
 HEXN48 .FILL xFFD0
 HEX48 .FILL x0030
 PLACEHUNDRED .FILL x0064
